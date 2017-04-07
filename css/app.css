@@ -5790,4 +5790,21 @@ li {
 .descriptioncaption2 {
   text-align: center;
   font-size: 20px; }
+
+.welcomename {
+  color: green;
+  font-weight: bold;
+  padding-left: 200px;
+  vertical-align: middle; }
+
+.usernamecolor {
+  color: green;
+  font-weight: bold; }
+
+.loginpleasecolor {
+  font-weight: bold; }
+
+.logmeincolor {
+  font-weight: bolder; }
+
 /*# sourceMappingURL=app.css.map */

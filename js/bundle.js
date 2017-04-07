@@ -2,7 +2,7 @@
 "use strict";
 var React = require('react');
 var Backbone = require('backbone');
-var Cookie = require('js-cookie');
+var Cookies = require('js-cookie');
 
 var Order = require('../models/shirts').Order;
 var OrderCollection = require('../models/shirts').OrderCollection;
@@ -33,9 +33,9 @@ var CartLayout = React.createClass({displayName: "CartLayout",
     var orderCollection = new OrderCollection();
     var cart = this.state.cart;
     cart.price = this.state.total;
-    cart.name = Cookie.get('username');
-    // add cookie remove to logout / lookout timeout, also
-    // Cookie.remove('username');
+    cart.name = Cookies.get('username');
+
+    // requires signin with new username on t-shirt screen after clicking checkout
     orderCollection.create(cart);
     localStorage.removeItem('cart');
     this.setState({ cart: [], total: 0 });
@@ -80,7 +80,7 @@ var CartLayout = React.createClass({displayName: "CartLayout",
                             React.createElement("a", {href: "#cart/"}, "Cart")
                         )
                     ), 
-                    React.createElement("span", null, "Hello - you're signed in as ", Cookie.get('username'))
+                    React.createElement("span", {className: "welcomename"}, "Checking out as ", Cookies.get('username'), " ! ")
                 )
             )
         ), 
@@ -103,7 +103,7 @@ var CartLayout = React.createClass({displayName: "CartLayout",
             React.createElement("ul", null, 
               React.createElement("h1", null, React.createElement("li", null, "$ ", this.state.total))
             ), 
-            React.createElement("button", {onClick: this.purchaseItems, type: "button", className: "btn btn-info btn-lg"}, "Purchase Items")
+            React.createElement("button", {onClick: this.purchaseItems, type: "button", className: "btn btn-danger btn-lg"}, "Purchase Items")
           )
         )
       )
@@ -140,13 +140,13 @@ var MainLayout = React.createClass({displayName: "MainLayout",
     var shirtCollection = new ShirtCollection();
     return {
       shirtCollection: shirtCollection,
-      showModal: true
+      showModal: false
     }
   },
 
   componentWillMount: function() {
     if(Cookies.get('username')){
-      this.setState({ showModal: false })
+      this.setState({ showModal: true })
     };
 
     var newShirtCollection = this.state.shirtCollection;
@@ -221,10 +221,13 @@ var MainLayout = React.createClass({displayName: "MainLayout",
                     ), 
                     React.createElement("li", null, 
                       React.createElement("a", {href: "#cart/"}, "Cart")
+                    ), 
+                    React.createElement("li", null, 
+                      React.createElement("h1", null, " ", React.createElement("span", {className: "welcomename"}, "Welcome, ", Cookies.get('username'), " !"))
                     )
                   )
-                ), 
-                React.createElement("span", null, "Hello - you're signed in as ", Cookies.get('username'))
+
+                )
               )
             ), 
             React.createElement(SignInModal, {showModal:  this.state.showModal, addUsername:  this.addUsername}), 
@@ -386,12 +389,12 @@ class SignInModal extends React.Component {
         React.createElement(Modal, {show: this.props.showModal}, 
           React.createElement(Modal.Header, {closeButton: true}, 
             React.createElement(Modal.Title, null, 
-              React.createElement("span", null, "You haven't logged in yet!")
+              React.createElement("span", {className: "loginpleasecolor"}, "Login Please!")
             )
           ), 
           React.createElement(Modal.Body, null, 
-            React.createElement("input", {type: "text", onChange: this.handleUsername, placeholder: "username"}), 
-            React.createElement("button", {onClick: this.handleSubmit}, "Sign me in!")
+            React.createElement("input", {className: "usernamecolor", type: "text", onChange: this.handleUsername, placeholder: "Username"}), 
+            React.createElement("button", {className: "logmeincolor", onClick: this.handleSubmit}, "Log Me In!")
           )
         )
       )
