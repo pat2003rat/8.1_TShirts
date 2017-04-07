@@ -341,7 +341,7 @@ var React = require('react');
 var Backbone = require('backbone');
 
 var Shirt = Backbone.Model.extend({
-urlRoot: 'https://tiny-lasagna-server.herokuapp.com/collections/patrickshirts'
+  urlRoot: 'https://tiny-lasagna-server.herokuapp.com/collections/patrickshirts'
 });
 
 var ShirtCollection = Backbone.Collection.extend({
@@ -351,9 +351,9 @@ var ShirtCollection = Backbone.Collection.extend({
 var Order = Backbone.Model.extend({
   urlRoot: 'https://tiny-lasagna-server.herokuapp.com/collections/patrickshirtscollection',
   idAttribute: '_id',
-  defaults:{
-    "name": "",
-    "price": ""
+  defaults: {
+    'name': '',
+    'price': ''
   }
 });
 
@@ -380,23 +380,23 @@ var ReactDOM = require('react-dom');
 var MainLayout = require('./components/catalog.jsx').MainLayout;
 var CartLayout = require('./components/cart.jsx').CartLayout;
 var AppRouter = Backbone.Router.extend({
-  routes:{
-    "": 'index',
-    "cart/": 'cart'
+  routes: {
+    '': 'index',
+    'cart/': 'cart'
 
   },
   index: function(){
     ReactDOM.render(
       React.createElement(MainLayout),
       document.getElementById('app')
-    )
+    );
   },
-cart: function(){
-  ReactDOM.render(
+  cart: function(){
+    ReactDOM.render(
     React.createElement(CartLayout),
     document.getElementById('app')
-  )
-}
+  );
+  }
 });
 var appRouter = new AppRouter();
 
