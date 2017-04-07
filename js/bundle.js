@@ -67,12 +67,12 @@ var CartLayout = React.createClass({displayName: "CartLayout",
                 ), 
                 React.createElement("div", {className: "collapse navbar-collapse", id: "bs-example-navbar-collapse-1"}, 
                     React.createElement("ul", {className: "nav navbar-nav"}, 
-                        React.createElement("li", {className: "active"}, 
+                        React.createElement("li", null, 
                             React.createElement("a", {href: "#"}, "T-Shirts", 
                                 React.createElement("span", {className: "sr-only"}, "(current)")
                             )
                         ), 
-                        React.createElement("li", null, 
+                        React.createElement("li", {className: "active"}, 
                             React.createElement("a", {href: "#cart/"}, "Cart")
                         )
                     )
@@ -189,7 +189,7 @@ var MainLayout = React.createClass({displayName: "MainLayout",
                   ), 
                 React.createElement("div", {className: "collapse navbar-collapse", id: "bs-example-navbar-collapse-1"}, 
                   React.createElement("ul", {className: "nav navbar-nav"}, 
-                    React.createElement("li", null, 
+                    React.createElement("li", {className: "active"}, 
                       React.createElement("a", {href: "#"}, "T-Shirts ")
                     ), 
                     React.createElement("li", null, 
@@ -269,7 +269,7 @@ var Tshirt = React.createClass({displayName: "Tshirt",
 
       var tshirts = this.props.shirtCollection.map(function(tshirt, index) {
         return (
-          React.createElement("div", {key: tshirt.cid, className: "col-sm-6 col-md-4"}, 
+          React.createElement("div", {key: tshirt.cid, className: "col-sm-12 col-md-4"}, 
             React.createElement("div", {className: "thumbnail"}, 
               React.createElement("img", {src: tshirt.get('image'), alt: "..."}), 
               React.createElement("div", {className: "caption"}, 
