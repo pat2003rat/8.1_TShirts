@@ -2,6 +2,7 @@ var $ = window.$ = window.jQuery = require('jquery');
 var React = require('react');
 var Modal = require('react-bootstrap').Modal;
 var Backbone = require('backbone');
+var Cookies = require('js-cookie');
 
 var ButtonToolbar = require('react-bootstrap/lib/ButtonToolbar');
 var DropdownButton = require('react-bootstrap/lib/DropdownButton');
@@ -16,48 +17,69 @@ var OrderCollection = require('../models/shirts').OrderCollection
 require('bootstrap-sass');
 
 var MainLayout = React.createClass({
-    getInitialState: function() {
-        var shirtCollection = new ShirtCollection();
-        return {shirtCollection: shirtCollection}
-    },
+  getInitialState: function() {
+    var shirtCollection = new ShirtCollection();
+    return {
+      shirtCollection: shirtCollection,
+      showModal: true
+    }
+  },
 
-    componentWillMount: function() {
-        var newShirtCollection = this.state.shirtCollection;
-        newShirtCollection.add([
-            {
-                image: "./images/ewok.jpg",
-                name: "Ewok Brewing",
-                price: 7.99,
-                description: "Walk In, Ewok Out"
-            }, {
-                image: "./images/hanssolo.jpg",
-                name: "Hans going Solo .......",
-                price: 7.49,
-                description: "Leverhosen never felt so right"
-            }, {
-                image: "./images/acute.jpg",
-                name: "Acute Baby ....",
-                price: 5.97,
-                description: "Why so obtuse?"
-            }, {
-                image: "./images/r2d2.png",
-                name: "It's a Pirates Life for R2D2 ....",
-                price: 5.97,
-                description: "C3PO didnt make it in time"
-            }, {
-                image: "./images/element.jpg",
-                name: "Confusion",
-                price: 5.97,
-                description: "Element of Confusion"
-            },{
-                image: "./images/muscles.jpg",
-                name: "Muscles",
-                price: 5.97,
-                description: "Installing Muscles"
-            }
-        ]);
-        this.setState({shirtCollection: newShirtCollection});
-    },
+  componentWillMount: function() {
+    if(Cookies.get('username')){
+      this.setState({ showModal: false })
+    };
+
+    var newShirtCollection = this.state.shirtCollection;
+    newShirtCollection.add([
+      {
+          image: "./images/ewok.jpg",
+          name: "Ewok Brewing",
+          price: 7.99,
+          description: "Walk In, Ewok Out"
+      }, {
+          image: "./images/hanssolo.jpg",
+          name: "Hans going Solo .......",
+          price: 7.49,
+          description: "Leverhosen never felt so right"
+      }, {
+          image: "./images/acute.jpg",
+          name: "Acute Baby ....",
+          price: 5.97,
+          description: "Why so obtuse?"
+      }, {
+          image: "./images/r2d2.png",
+          name: "It's a Pirates Life for R2D2 ....",
+          price: 5.97,
+          description: "C3PO didnt make it in time"
+      }, {
+          image: "./images/element.jpg",
+          name: "Confusion",
+          price: 5.97,
+          description: "Element of Confusion"
+      },{
+          image: "./images/muscles.jpg",
+          name: "Muscles",
+          price: 5.97,
+          description: "Installing Muscles"
+      }
+    ]);
+    this.setState({shirtCollection: newShirtCollection});
+  },
+
+  addUsername: function(username){
+    console.log(username);
+    Cookies.set('username', username)
+    // set your Cookie
+    var usernameCheck = Cookies.get('username')
+    console.log('check', usernameCheck);
+    // get the cookie (show me in the console)
+    this.setState({
+      username: username,
+      showModal: false
+    });
+    // then update state
+  },
 
     render: function() {
         return (
@@ -83,11 +105,12 @@ var MainLayout = React.createClass({
                     </li>
                   </ul>
                 </div>
+                <span>Hello - you're signed in as {Cookies.get('username')}</span>
               </div>
             </nav>
+            <SignInModal showModal={ this.state.showModal } addUsername={ this.addUsername }/>
             <div className="row">
                 <div className = "col-md-12">
-
               <Tshirt shirtCollection={this.state.shirtCollection}/>
               </div>
             </div>
@@ -150,6 +173,18 @@ var Tshirt = React.createClass({
       tshirt.set({size: size})
     },
 
+    openModal() {
+    this.setState({showModal: true});
+    },
+
+    closeModal() {
+    return this.setState({showModal: false});
+  },
+
+  addUsername(username){
+    return Cookies.set('username', username);
+  },
+
     render: function() {
       var self = this;
 
@@ -203,6 +238,47 @@ class Dropdown extends React.Component {
    )
  }
 }
+
+class SignInModal extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleUsername = this.handleUsername.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  componentWillReceiveProps(nextProps){
+    console.log('next', nextProps );
+    // this.setState({showModal: this.props.openModal});
+  }
+
+  handleUsername(e) {
+    e.preventDefault();
+    this.setState({username: e.target.value});
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.addUsername(this.state.username);
+  }
+  render(){
+
+    return (
+      <div>
+        <Modal show={this.props.showModal} >
+          <Modal.Header closeButton>
+            <Modal.Title>
+              <span>You haven't logged in yet!</span>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <input type="text" onChange={this.handleUsername} placeholder='username' />
+            <button onClick={this.handleSubmit}>Sign me in!</button>
+          </Modal.Body>
+        </Modal>
+      </div>
+    );
+  }
+};
 
 module.exports = {
     MainLayout,

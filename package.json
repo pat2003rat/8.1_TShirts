@@ -71,6 +71,7 @@
     ]
   },
   "dependencies": {
+    "js-cookie": "^2.1.4",
     "react-bootstrap": "^0.30.8"
   }
 }

@@ -1,5 +1,6 @@
 var React = require('react');
 var Backbone = require('backbone');
+var Cookie = require('js-cookie');
 
 var Order = require('../models/shirts').Order;
 var OrderCollection = require('../models/shirts').OrderCollection;
@@ -30,6 +31,9 @@ var CartLayout = React.createClass({
     var orderCollection = new OrderCollection();
     var cart = this.state.cart;
     cart.price = this.state.total;
+    cart.name = Cookie.get('username');
+    // add cookie remove to logout / lookout timeout, also
+    // Cookie.remove('username');
     orderCollection.create(cart);
     localStorage.removeItem('cart');
     this.setState({ cart: [], total: 0 });
@@ -74,6 +78,7 @@ var CartLayout = React.createClass({
                             <a href="#cart/">Cart</a>
                         </li>
                     </ul>
+                    <span>Hello - you're signed in as {Cookie.get('username')}</span>
                 </div>
             </div>
         </nav>
