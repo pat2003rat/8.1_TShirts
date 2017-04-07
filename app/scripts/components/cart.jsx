@@ -24,11 +24,15 @@ var CartLayout = React.createClass({
       total: total
     };
   },
-  //clearing localStorage of puchaseItems
-  puchaseItems: function(e){
+  //clearing localStorage of purchaseItems
+  purchaseItems: function(e){
     e.preventDefault();
-    localStorage.clear();
-    this.forceUpdate();
+    var orderCollection = new OrderCollection();
+    var cart = this.state.cart;
+    cart.price = this.state.total;
+    orderCollection.create(cart);
+    localStorage.removeItem('cart');
+    this.setState({ cart: [], total: 0 });
   },
 
   render: function(){
@@ -92,7 +96,7 @@ var CartLayout = React.createClass({
             <ul>
               <h1><li>$ {this.state.total}</li></h1>
             </ul>
-            <button onClick={this.puchaseItems}type="button" className="btn btn-info btn-lg">Purchase Items</button>
+            <button onClick={this.purchaseItems}type="button" className="btn btn-info btn-lg">Purchase Items</button>
           </div>
         </div>
       </div>

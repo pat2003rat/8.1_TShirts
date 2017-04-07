@@ -10,20 +10,17 @@ var ShirtCollection = Backbone.Collection.extend({
   model: Shirt
 });
 var Order = Backbone.Model.extend({
-  urlRoot: 'https://tiny-lasagna-server.herokuapp.com/collections/patrickshirts',
+  urlRoot: 'https://tiny-lasagna-server.herokuapp.com/collections/patrickshirtscollection',
   idAttribute: '_id',
   defaults:{
     "name": "",
-    "description": "",
-    "price": "",
-    "size": "",
+    "price": ""
   }
 });
 
 var OrderCollection = Backbone.Collection.extend({
   model: Order,
   url: 'https://tiny-lasagna-server.herokuapp.com/collections/patrickshirtscollection'
-
 });
 
 
