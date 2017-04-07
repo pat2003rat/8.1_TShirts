@@ -21,13 +21,13 @@ var MainLayout = React.createClass({
     var shirtCollection = new ShirtCollection();
     return {
       shirtCollection: shirtCollection,
-      showModal: true
+      showModal: false
     }
   },
 
   componentWillMount: function() {
     if(Cookies.get('username')){
-      this.setState({ showModal: false })
+      this.setState({ showModal: true })
     };
 
     var newShirtCollection = this.state.shirtCollection;
@@ -103,9 +103,12 @@ var MainLayout = React.createClass({
                     <li>
                       <a href="#cart/">Cart</a>
                     </li>
+                    <li>
+                      <h1> <span className ="welcomename">Welcome, {Cookies.get('username')} !</span></h1>
+                    </li>
                   </ul>
+
                 </div>
-                <span>Hello - you're signed in as {Cookies.get('username')}</span>
               </div>
             </nav>
             <SignInModal showModal={ this.state.showModal } addUsername={ this.addUsername }/>
@@ -267,12 +270,12 @@ class SignInModal extends React.Component {
         <Modal show={this.props.showModal} >
           <Modal.Header closeButton>
             <Modal.Title>
-              <span>You haven't logged in yet!</span>
+              <span className="loginpleasecolor">Login Please!</span>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <input type="text" onChange={this.handleUsername} placeholder='username' />
-            <button onClick={this.handleSubmit}>Sign me in!</button>
+            <input className="usernamecolor" type="text" onChange={this.handleUsername} placeholder='Username' />
+            <button className ='logmeincolor' onClick={this.handleSubmit}>Log Me In!</button>
           </Modal.Body>
         </Modal>
       </div>

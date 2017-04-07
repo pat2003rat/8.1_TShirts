@@ -1,6 +1,6 @@
 var React = require('react');
 var Backbone = require('backbone');
-var Cookie = require('js-cookie');
+var Cookies = require('js-cookie');
 
 var Order = require('../models/shirts').Order;
 var OrderCollection = require('../models/shirts').OrderCollection;
@@ -31,9 +31,9 @@ var CartLayout = React.createClass({
     var orderCollection = new OrderCollection();
     var cart = this.state.cart;
     cart.price = this.state.total;
-    cart.name = Cookie.get('username');
-    // add cookie remove to logout / lookout timeout, also
-    // Cookie.remove('username');
+    cart.name = Cookies.get('username');
+
+    // requires signin with new username on t-shirt screen after clicking checkout
     orderCollection.create(cart);
     localStorage.removeItem('cart');
     this.setState({ cart: [], total: 0 });
@@ -78,7 +78,7 @@ var CartLayout = React.createClass({
                             <a href="#cart/">Cart</a>
                         </li>
                     </ul>
-                    <span>Hello - you're signed in as {Cookie.get('username')}</span>
+                    <span className = "welcomename">Checking out as {Cookies.get('username')} ! </span>
                 </div>
             </div>
         </nav>
@@ -101,7 +101,7 @@ var CartLayout = React.createClass({
             <ul>
               <h1><li>$ {this.state.total}</li></h1>
             </ul>
-            <button onClick={this.purchaseItems}type="button" className="btn btn-info btn-lg">Purchase Items</button>
+            <button onClick={this.purchaseItems}type="button" className="btn btn-danger btn-lg">Purchase Items</button>
           </div>
         </div>
       </div>
