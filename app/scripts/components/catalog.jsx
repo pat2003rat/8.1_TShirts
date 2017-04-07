@@ -75,7 +75,7 @@ var MainLayout = React.createClass({
                   </div>
                 <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul className="nav navbar-nav">
-                    <li>
+                    <li className="active">
                       <a href="#">T-Shirts </a>
                     </li>
                     <li>
@@ -155,7 +155,7 @@ var Tshirt = React.createClass({
 
       var tshirts = this.props.shirtCollection.map(function(tshirt, index) {
         return (
-          <div key={tshirt.cid} className="col-sm-6 col-md-4">
+          <div key={tshirt.cid} className="col-sm-12 col-md-4">
             <div className="thumbnail">
               <img src={tshirt.get('image')} alt="..."/>
               <div className="caption">

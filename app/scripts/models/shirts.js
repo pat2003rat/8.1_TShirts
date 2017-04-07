@@ -2,7 +2,7 @@ var React = require('react');
 var Backbone = require('backbone');
 
 var Shirt = Backbone.Model.extend({
-urlRoot: 'https://tiny-lasagna-server.herokuapp.com/collections/patrickshirts'
+  urlRoot: 'https://tiny-lasagna-server.herokuapp.com/collections/patrickshirts'
 });
 
 var ShirtCollection = Backbone.Collection.extend({
@@ -12,9 +12,9 @@ var ShirtCollection = Backbone.Collection.extend({
 var Order = Backbone.Model.extend({
   urlRoot: 'https://tiny-lasagna-server.herokuapp.com/collections/patrickshirtscollection',
   idAttribute: '_id',
-  defaults:{
-    "name": "",
-    "price": ""
+  defaults: {
+    'name': '',
+    'price': ''
   }
 });
 

@@ -65,12 +65,12 @@ var CartLayout = React.createClass({
                 </div>
                 <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul className="nav navbar-nav">
-                        <li className="active">
+                        <li >
                             <a href="#">T-Shirts
                                 <span className="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li>
+                        <li className="active">
                             <a href="#cart/">Cart</a>
                         </li>
                     </ul>
