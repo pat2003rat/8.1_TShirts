@@ -94,7 +94,7 @@ var CartLayout = React.createClass({
           </div>
         </div>
         <div className="row">
-          <div className="col-md-4"></div>
+          <div className="col-xs-12 col-md-4"></div>
 
           <div className="well col-xs-12 col-md-4 checkoutwellcolor">
             <h3>Total</h3>
