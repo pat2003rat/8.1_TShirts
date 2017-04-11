@@ -78,6 +78,9 @@ var CartLayout = React.createClass({displayName: "CartLayout",
                         ), 
                         React.createElement("li", {className: "active"}, 
                             React.createElement("a", {href: "#cart/"}, "Cart")
+                        ), 
+                        React.createElement("li", null, 
+                          React.createElement("a", {href: "#", onClick: ()=>Cookies.remove('username')}, "Logout")
                         )
                     ), 
                     React.createElement("span", {className: "welcomename"}, "Checking out as ", Cookies.get('username'), " ! ")
@@ -96,7 +99,7 @@ var CartLayout = React.createClass({displayName: "CartLayout",
           )
         ), 
         React.createElement("div", {className: "row"}, 
-          React.createElement("div", {className: "col-md-4"}), 
+          React.createElement("div", {className: "col-xs-12 col-md-4"}), 
 
           React.createElement("div", {className: "well col-xs-12 col-md-4 checkoutwellcolor"}, 
             React.createElement("h3", null, "Total"), 
@@ -140,13 +143,14 @@ var MainLayout = React.createClass({displayName: "MainLayout",
     var shirtCollection = new ShirtCollection();
     return {
       shirtCollection: shirtCollection,
-      showModal: false
+      showModal: true
     }
   },
 
   componentWillMount: function() {
+    // if username cookie exists, don't show login modal
     if(Cookies.get('username')){
-      this.setState({ showModal: true })
+      this.setState({ showModal: false })
     };
 
     var newShirtCollection = this.state.shirtCollection;
@@ -169,23 +173,28 @@ var MainLayout = React.createClass({displayName: "MainLayout",
       }, {
           image: "./images/r2d2.png",
           name: "It's a Pirates Life for R2D2 ....",
-          price: 5.97,
+          price: 7.63,
           description: "C3PO didnt make it in time"
       }, {
           image: "./images/element.jpg",
           name: "Confusion",
-          price: 5.97,
+          price: 9.17,
           description: "Element of Confusion"
       },{
           image: "./images/muscles.jpg",
           name: "Muscles",
-          price: 5.97,
+          price: 6.07,
           description: "Installing Muscles"
       }
     ]);
     this.setState({shirtCollection: newShirtCollection});
   },
 
+// removing username cookie; login modal will now show
+  handleLogout: function(){
+    Cookies.remove('username');
+    this.setState({ showModal: true });
+  },
   addUsername: function(username){
     console.log(username);
     Cookies.set('username', username)
@@ -221,6 +230,9 @@ var MainLayout = React.createClass({displayName: "MainLayout",
                     ), 
                     React.createElement("li", null, 
                       React.createElement("a", {href: "#cart/"}, "Cart")
+                    ), 
+                    React.createElement("li", null, 
+                      React.createElement("a", {href: "#", onClick: this.handleLogout}, "Logout")
                     ), 
                     React.createElement("li", null, 
                       React.createElement("h1", null, " ", React.createElement("span", {className: "welcomename"}, "Welcome, ", Cookies.get('username'), " !"))

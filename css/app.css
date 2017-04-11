@@ -5772,6 +5772,9 @@ li {
 .thumbnail > img {
   height: 222px; }
 
+.thumbnail {
+  background-color: #E0FFFF; }
+
 .buttonpush {
   float: right; }
 
@@ -5806,4 +5809,5 @@ li {
 
 .logmeincolor {
   font-weight: bolder; }
+
 /*# sourceMappingURL=app.css.map */
