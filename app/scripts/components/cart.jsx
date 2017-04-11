@@ -77,6 +77,9 @@ var CartLayout = React.createClass({
                         <li className="active">
                             <a href="#cart/">Cart</a>
                         </li>
+                        <li>
+                          <a href="#" onClick={()=>Cookies.remove('username')}>Logout</a>
+                        </li>
                     </ul>
                     <span className = "welcomename">Checking out as {Cookies.get('username')} ! </span>
                 </div>

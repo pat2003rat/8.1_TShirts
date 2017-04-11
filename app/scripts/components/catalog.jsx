@@ -21,13 +21,14 @@ var MainLayout = React.createClass({
     var shirtCollection = new ShirtCollection();
     return {
       shirtCollection: shirtCollection,
-      showModal: false
+      showModal: true
     }
   },
 
   componentWillMount: function() {
+    // if username cookie exists, don't show login modal
     if(Cookies.get('username')){
-      this.setState({ showModal: true })
+      this.setState({ showModal: false })
     };
 
     var newShirtCollection = this.state.shirtCollection;
@@ -50,23 +51,28 @@ var MainLayout = React.createClass({
       }, {
           image: "./images/r2d2.png",
           name: "It's a Pirates Life for R2D2 ....",
-          price: 5.97,
+          price: 7.63,
           description: "C3PO didnt make it in time"
       }, {
           image: "./images/element.jpg",
           name: "Confusion",
-          price: 5.97,
+          price: 9.17,
           description: "Element of Confusion"
       },{
           image: "./images/muscles.jpg",
           name: "Muscles",
-          price: 5.97,
+          price: 6.07,
           description: "Installing Muscles"
       }
     ]);
     this.setState({shirtCollection: newShirtCollection});
   },
 
+// removing username cookie; login modal will now show
+  handleLogout: function(){
+    Cookies.remove('username');
+    this.setState({ showModal: true });
+  },
   addUsername: function(username){
     console.log(username);
     Cookies.set('username', username)
@@ -102,6 +108,9 @@ var MainLayout = React.createClass({
                     </li>
                     <li>
                       <a href="#cart/">Cart</a>
+                    </li>
+                    <li>
+                      <a href="#" onClick={this.handleLogout}>Logout</a>
                     </li>
                     <li>
                       <h1> <span className ="welcomename">Welcome, {Cookies.get('username')} !</span></h1>
