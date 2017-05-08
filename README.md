@@ -1,8 +1,7 @@
 ## 8 1 tshirts
 
-This project was the first time we put cookies and localstorage to use.  We used user authentication implemented by both localstorage and cookies used to log a customer in, persist a shopping cart of cool shirts, and place a mock order.
+This project was the first time we put cookies and localstorage to use. With our first attempt with user authentication through localstorage and cookies it was used to log a customer in, checkout, and place a mock order.
 
-Uses:
 React
 Backbone.js
 jQuery
